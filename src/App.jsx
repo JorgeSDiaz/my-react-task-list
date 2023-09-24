@@ -14,8 +14,7 @@ export default function App() {
 
   const handleEdit = (task) => {
     let newTittle = prompt("Editando tarea");
-    let check = confirm("¿Estás seguro de editar la tarea?");
-    if (check && newTittle !== "") {
+    if (newTittle !== "" && newTittle !== null) {
       setTasks(
         tasks.map((item) =>
           item.id === task.id ? { ...item, tittle: newTittle } : item
@@ -34,9 +33,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <div className="grid grid-cols-1 m-8">
       <Header appTittle={"My Task List"} />
       <TaskList tasks={tasks} onDelet={handleDelete} onEdit={handleEdit}/>
-    </>
+    </div>
   );
 }

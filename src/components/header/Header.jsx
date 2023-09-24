@@ -1,7 +1,7 @@
 export default function Header({ appTittle }) {
   return (
     <header>
-      <h1>{appTittle}</h1>
+      <h1 className="text-5xl py-4 my-4 font-bold text-blue-400">{appTittle}</h1>
     </header>
   );
 }
