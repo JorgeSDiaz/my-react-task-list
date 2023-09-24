@@ -1,3 +1,9 @@
+import Header from "./components/header/Header";
+
 export default function App() {
-  return <></>;
+  return (
+    <>
+      <Header appTittle={"My Task List"} />
+    </>
+  );
 }
