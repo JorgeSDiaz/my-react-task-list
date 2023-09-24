@@ -23,7 +23,7 @@ export default function Task({ task, onEdit, onDelete }) {
         onChange={handleChecked}
         className="w-7 h-7 appearance-none border-double border-4 border-gray-400 rounded-full checked:bg-lime-300 checked:border-transparent checked:border-green-600 p-1 my-1"
       />
-      <div className="p-auto m-auto">
+      <div className="p-auto m-auto px-4">
         <h2 className={checked ? "text-red-500 line-through" : null}>
           {task.tittle}
         </h2>
