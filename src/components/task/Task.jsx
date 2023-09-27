@@ -1,8 +1,5 @@
-import { useState } from "react";
 
-export default function Task({ task, onEdit, onDelete }) {
-  const [checked, setChecked] = useState(false);
-
+export default function Task({ task, onEdit, onDelete, onCompleted }) {
   const handleEdit = () => {
     onEdit(task);
   };
@@ -11,20 +8,20 @@ export default function Task({ task, onEdit, onDelete }) {
     onDelete(task.id);
   };
 
-  const handleChecked = () => {
-    setChecked(!checked);
+  const handlecompleted = () => {
+    onCompleted(task.id);
   };
 
   return (
     <div className="grid grid-flow-col p-5 bg-gray-100">
       <input
         type="checkbox"
-        checked={checked}
-        onChange={handleChecked}
-        className="w-7 h-7 appearance-none border-double border-4 border-gray-400 rounded-full checked:bg-lime-300 checked:border-transparent checked:border-green-600 p-1 my-1"
+        completed={task.completed}
+        onChange={handlecompleted}
+        className="w-7 h-7 appearance-none border-double border-4 border-gray-400 rounded-full checked:bg-lime-300 checked:border-transparent checked:border-green-800 p-1 my-1"
       />
       <div className="p-auto m-auto px-4">
-        <h2 className={checked ? "text-red-500 line-through" : null}>
+        <h2 className={task.completed ? "text-red-500 line-through" : null}>
           {task.tittle}
         </h2>
       </div>
