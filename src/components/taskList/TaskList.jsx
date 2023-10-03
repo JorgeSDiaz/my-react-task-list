@@ -1,57 +1,20 @@
+import { useTask } from "../../hooks/useTask";
 import Task from "../task/Task";
-import { useEffect, useState } from "react";
 
 export default function TaskList({ data }) {
-  const [tasks, setTasks] = useState(data);
+  const [tasks, editTask, deleteTask, completedTask] = useTask(data);
 
-  const defineLocalStorage = (storageData) => {
-    localStorage.setItem("tasks", JSON.stringify(storageData));
-  };
-
-  const handleEdit = (task) => {
-    let tasksCopy = [...tasks];
-
-    let newTittle = prompt("Editando tarea");
-    if (newTittle !== "" && newTittle !== null) {
-      tasksCopy.map((item) => {
-        if (item.id === task.id) {
-          item.tittle = newTittle;
-        }
-      });
-
-      setTasks(tasksCopy);
-      defineLocalStorage(tasksCopy);
-    }
+  function handleEdit(task) {
+    editTask(task);
   }
 
-  const handleDelete = (id) => {
-    let tasksCopy = [...tasks];
-
-    let check = confirm("¿Estás seguro de eliminar la tarea?");
-    if (check) {
-      tasksCopy = tasksCopy.filter((task) => task.id !== id);
-    }
-    setTasks(tasksCopy);
-    defineLocalStorage(tasksCopy);
+  function handleDelete(task) {
+    deleteTask(task);
   }
 
-  const handlecompleted = (id) => {
-    let tasksCopy = [...tasks];
-
-    tasksCopy.map((item) => {
-      if (item.id === id) {
-        item.completed = item.completed ? 0 : 1;
-      }
-    });
-
-    setTasks(tasksCopy);
-    defineLocalStorage(tasksCopy);
-  };
-
-  useEffect(() => {
-    const localStorageData = localStorage.getItem("tasks");
-    setTasks(JSON.parse(localStorageData) || data);
-  }, []);
+  function handlecompleted(task) {
+    completedTask(task);
+  }
 
   return (
     <div className="grid gap-y-5">
