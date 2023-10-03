@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 
-export function useTask(data) {
+export function useTask() {
+    const data = [
+        { id: 1, tittle: "Buscar la ropa en la lavanderia 🧥", completed: 0 },
+        { id: 2, tittle: "Comprar los ingredientes para la cena 🥦", completed: 0 },
+        { id: 3, tittle: "Llamar a mi mamá 📞" },
+        { id: 4, tittle: "Hacer la tarea de matemáticas 📝", completed: 0 },
+      ];
+
     const [tasks, setTasks] = useState(data);
+    const [nextIndex, setNextIndex] = useState(data.length + 1);
 
     const defineLocalStorage = (storageData) => {
       localStorage.setItem("tasks", JSON.stringify(storageData));
@@ -33,6 +41,15 @@ export function useTask(data) {
       setTasks(tasksCopy);
       defineLocalStorage(tasksCopy);
     }
+    
+    const addTask = (task) => {
+        let tasksCopy = [...tasks];
+        task.id = nextIndex;
+        setNextIndex(nextIndex + 1);
+        tasksCopy.push(task);
+        setTasks(tasksCopy);
+        defineLocalStorage(tasksCopy);
+    }
   
     const completedTask = (id) => {
       let tasksCopy = [...tasks];
@@ -52,5 +69,5 @@ export function useTask(data) {
       setTasks(JSON.parse(localStorageData) || data);
     }, []);
 
-    return [tasks, editTask, deleteTask, completedTask]
+    return [tasks, editTask, deleteTask, addTask, completedTask]
 }
