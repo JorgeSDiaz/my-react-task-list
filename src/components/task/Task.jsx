@@ -24,6 +24,7 @@ export default function Task({ task, onEdit, onDelete, onCompleted }) {
         <h2 className={task.completed ? "text-red-500 line-through" : null}>
           {task.tittle}
         </h2>
+        {task.description && <p className="text-gray-500">{task.description}</p>}
       </div>
       <div className="p-auto m-auto flex space-x-4">
         <button
