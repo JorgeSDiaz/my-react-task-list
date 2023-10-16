@@ -1,6 +1,6 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
-import { lazy } from "react";
+import { Suspense, lazy } from "react";
 
 const TaskList = lazy(() => import("./components/taskList/TaskList"));
 const Home = lazy(() => import("./components/Home/Home"));
@@ -10,13 +10,32 @@ export default function App() {
   return (
     <div className="flex-col justify-items-center justify-center p-5">
       <Header appTittle={"My Task List"} />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tasks" element={<TaskList />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/tasks"
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <TaskList />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <About />
+            </Suspense>
+          }
+        />
+      </Routes>
     </div>
   );
 }
